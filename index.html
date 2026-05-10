@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akhror Web | Akademiya</title>
+    <title>Akhror Web | IT Academy</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00d2ff; --accent: #00ff88; --bg: #06090f; --card: #111725; }
@@ -18,23 +18,39 @@
         .title-text { color: var(--primary); font-size: 13px; letter-spacing: 2px; margin-bottom: 25px; text-transform: uppercase; font-weight: 600; }
 
         .btn-list { display: flex; flex-direction: column; gap: 12px; }
-        .btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 16px; border-radius: 15px; color: white; cursor: pointer; font-weight: 600; transition: 0.3s; display: flex; justify-content: space-between; align-items: center; text-decoration: none; }
-        .btn:hover { background: rgba(0, 210, 255, 0.12); border-color: var(--primary); transform: translateY(-4px); }
+        .btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 16px; border-radius: 15px; color: white; cursor: pointer; font-weight: 600; transition: 0.3s; display: flex; justify-content: space-between; align-items: center; text-decoration: none; border: 1px solid transparent; }
+        .btn:hover { background: rgba(0, 210, 255, 0.12); border-color: var(--primary); transform: translateY(-4px); box-shadow: 0 5px 15px rgba(0, 210, 255, 0.2); }
         
         .status-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 12px var(--accent); }
 
-        /* Modal */
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 100; padding: 20px; }
-        .modal-content { background: var(--card); border: 1px solid var(--primary); padding: 30px; border-radius: 25px; max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto; text-align: left; }
-        .close-btn { float: right; color: white; font-size: 22px; cursor: pointer; background: var(--primary); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+        .modal-content { background: var(--card); border: 1px solid var(--primary); padding: 30px; border-radius: 25px; max-width: 550px; width: 100%; max-height: 90vh; overflow-y: auto; text-align: left; }
+        .close-btn { float: right; color: white; font-size: 22px; cursor: pointer; background: var(--primary); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 15px; }
         
-        .quiz-box { margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 15px; border-left: 4px solid var(--accent); }
+        .quiz-box { margin-top: 20px; padding: 20px; background: rgba(0,0,0,0.3); border-radius: 15px; border-left: 4px solid var(--accent); }
         input[type="text"] { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid var(--primary); background: #000; color: white; }
-        .check-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; }
+        .check-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; transition: 0.3s; }
+        .check-btn:active { transform: scale(0.95); }
 
-        /* Sertifikat qismi */
-        #certArea { display: none; text-align: center; background: white; color: #111; padding: 40px; border: 10px double var(--primary); border-radius: 10px; margin-top: 20px; }
-        .cert-title { font-size: 24px; color: #111; margin-bottom: 10px; }
+        /* Professional Sertifikat Dizayni */
+        #certArea { 
+            display: none; 
+            background: #ffffff; 
+            color: #1a2a44; 
+            padding: 40px; 
+            border: 15px solid #1a2a44; 
+            border-image: linear-gradient(to bottom, #1a2a44, #4a90e2) 1;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.8);
+        }
+        .cert-header { font-size: 38px; font-weight: 800; letter-spacing: 4px; color: #1a2a44; margin-bottom: 5px; }
+        .cert-sub { font-size: 12px; text-transform: uppercase; color: #555; margin-bottom: 25px; font-weight: 600; }
+        #studentName { font-size: 30px; color: #4a90e2; margin: 20px 0; border-bottom: 2px solid #1a2a44; display: inline-block; padding: 0 20px; font-style: italic; }
+        .cert-text { font-size: 14px; line-height: 1.6; margin-bottom: 30px; }
+        .cert-footer { display: flex; justify-content: space-between; align-items: flex-end; margin-top: 40px; }
+        .sig-box { border-top: 1px solid #1a2a44; width: 150px; font-size: 11px; padding-top: 5px; text-align: center; }
+        .qr-placeholder { width: 65px; height: 65px; border: 1px solid #1a2a44; display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: bold; background: #f0f0f0; }
     </style>
 </head>
 <body>
@@ -48,71 +64,78 @@
             <button class="btn" onclick="openModal('html')">HTML5 Darslari <span class="status-dot"></span></button>
             <button class="btn" onclick="openModal('css')">CSS3 Dizaynlar <span class="status-dot"></span></button>
             <button class="btn" onclick="openModal('python')">Python Mantiqi <span class="status-dot"></span></button>
-            <a href="https://akhrorsoliev.github.io/" class="btn" style="border-color: #ff9f43;">Eski Portfoliom <span class="status-dot" style="background: #ff9f43;"></span></a>
+            <a href="https://akhrorsoliev.github.io/" target="_blank" class="btn" style="border-color: #ff9f43;">Eski Portfoliom <span class="status-dot" style="background: #ff9f43; box-shadow: 0 0 10px #ff9f43;"></span></a>
         </div>
     </div>
 
     <div id="lessonModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div id="modalBody"></div>
-            <div id="quizContainer" class="quiz-box"></div>
+            <div id="lessonContent"></div>
             
+            <div id="quizContainer" class="quiz-box"></div>
+
             <div id="certArea">
-                <h3 class="cert-title">SERTIFIKAT</h3>
+                <div style="position: absolute; top: 15px; right: 15px; font-size: 10px; font-weight: bold; color: #1a2a44;">ID: AW-2026-OK</div>
+                <div class="cert-header">CERTIFICATE</div>
+                <div class="cert-sub">OF ACHIEVEMENT</div>
                 <p>Ushbu sertifikat egasi:</p>
-                <h2 id="studentName" style="color: var(--primary); margin: 15px 0;">Ism Sharif</h2>
-                <p>IT darslarini muvaffaqiyatli yakunladi!</p>
-                <p style="margin-top: 20px; font-size: 12px;">Akhror Web Akademiyasi</p>
+                <h2 id="studentName">Sizning Ismingiz</h2>
+                <p class="cert-text">IT darslari, algoritmlash va dasturlash asoslari kursini muvaffaqiyatli yakunlagani uchun taqdirlanadi.</p>
+                
+                <div class="cert-footer">
+                    <div class="sig-box">
+                        <span style="font-family: cursive; font-size: 16px;">Akhror Web</span><br>
+                        Akademiya direktori
+                    </div>
+                    <div class="qr-placeholder">VERIFIED</div>
+                </div>
             </div>
         </div>
     </div>
 
     <script>
-        let solvedTests = { html: false, css: false, python: false };
-
-        const lessons = {
-            html: { title: "HTML5 Darsi", content: "HTML sayt mazmunini belgilaydi.", question: "Eng katta sarlavha tegi?", answer: "h1" },
-            css: { title: "CSS3 Darsi", content: "CSS rang va ko'rinish beradi.", question: "Matn rangini o'zgartirish kodi?", answer: "color" },
-            python: { title: "Python Darsi", content: "Python dasturlash mantiqi.", question: "Ekranga chiqarish buyrug'i?", answer: "print" }
+        let progress = { html: false, css: false, python: false };
+        const courses = {
+            html: { t: "HTML5 Darsi", c: "HTML — bu veb-sahifaning asosi (skeleti).", q: "HTMLda eng katta sarlavha tegi nima?", a: "h1" },
+            css: { t: "CSS3 Darsi", c: "CSS — bu saytning tashqi ko'rinishi va dizayni.", q: "Matn rangini o'zgartirish kodi nima?", a: "color" },
+            python: { t: "Python Darsi", c: "Python — bu mantiqiy va sodda dasturlash tili.", q: "Ekranga chiqarish buyrug'i nima?", a: "print" }
         };
 
         function openModal(type) {
-            const data = lessons[type];
+            const course = courses[type];
             document.getElementById('certArea').style.display = 'none';
             document.getElementById('quizContainer').style.display = 'block';
-            document.getElementById('modalBody').innerHTML = `<h2>${data.title}</h2><p>${data.content}</p>`;
+            document.getElementById('lessonContent').innerHTML = `<h2 style="color:var(--primary); margin-bottom:10px;">${course.t}</h2><p>${course.c}</p>`;
             document.getElementById('quizContainer').innerHTML = `
-                <p><strong>Savol:</strong> ${data.question}</p>
-                <input type="text" id="quizInput" placeholder="Javobni yozing...">
-                <button class="check-btn" onclick="checkAnswer('${type}')">Tekshirish</button>
+                <p><strong>Savol:</strong> ${course.q}</p>
+                <input type="text" id="userInput" placeholder="Javobni yozing..." autocomplete="off">
+                <button class="check-btn" onclick="validate('${type}')">Tekshirish</button>
             `;
             document.getElementById('lessonModal').style.display = 'flex';
         }
 
-        function checkAnswer(type) {
-            const input = document.getElementById('quizInput').value.toLowerCase().trim();
-            if(input === lessons[type].answer) {
-                solvedTests[type] = true;
-                alert("To'g'ri! 🎉");
-                checkCertificate();
-            } else {
-                alert("Xato! Yana bir bor urinib ko'ring. 😊");
-            }
-        }
-
-        function checkCertificate() {
-            if(solvedTests.html && solvedTests.css && solvedTests.python) {
-                let name = prompt("Tabriklaymiz! Barcha testlarni yakunladingiz. Sertifikat uchun ismingizni kiriting:");
-                if(name) {
-                    document.getElementById('quizContainer').style.display = 'none';
-                    document.getElementById('certArea').style.display = 'block';
-                    document.getElementById('studentName').innerText = name;
+        function validate(type) {
+            const val = document.getElementById('userInput').value.toLowerCase().trim();
+            if(val === courses[type].a) {
+                progress[type] = true;
+                alert("To'g'ri! Barakalla! 🎉");
+                if(progress.html && progress.css && progress.python) {
+                    let name = prompt("TABRIKLAYMIZ! Ismingizni kiriting:");
+                    if(name) {
+                        document.getElementById('lessonContent').innerHTML = "";
+                        document.getElementById('quizContainer').style.display = 'none';
+                        document.getElementById('certArea').style.display = 'block';
+                        document.getElementById('studentName').innerText = name;
+                    }
                 }
+            } else {
+                alert("Xato. Yana bir bor urinib ko'ring! 😊");
             }
         }
 
         function closeModal() { document.getElementById('lessonModal').style.display = 'none'; }
+        window.onclick = function(e) { if(e.target == document.getElementById('lessonModal')) closeModal(); }
     </script>
 </body>
 </html>
