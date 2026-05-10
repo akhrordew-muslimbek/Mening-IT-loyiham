@@ -3,143 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akhror Web | Portfolio</title>
+    <title>Akhror Web | Interaktiv Darslar</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #00d2ff;
-            --secondary: #3a7bd5;
-            --accent: #00ff88;
-            --bg: #06090f;
-        }
-
+        :root { --primary: #00d2ff; --accent: #00ff88; --bg: #06090f; --card: #111725; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: var(--bg); font-family: 'Outfit', sans-serif; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden; }
 
-        body {
-            background-color: var(--bg);
-            font-family: 'Outfit', sans-serif;
-            color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow: hidden;
-            background: radial-gradient(circle at center, #101725 0%, #06090f 100%);
-        }
+        .container { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 40px; border-radius: 30px; text-align: center; width: 90%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 1; }
+        .profile-img { width: 100px; height: 100px; background: linear-gradient(45deg, var(--primary), var(--accent)); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 40px; border: 3px solid var(--bg); box-shadow: 0 0 20px var(--primary); }
+        h1 { font-size: 28px; margin-bottom: 5px; }
+        .title { color: var(--primary); font-size: 12px; letter-spacing: 2px; margin-bottom: 25px; text-transform: uppercase; }
 
-        /* Orqa fondagi harakatlanuvchi nur */
-        .bg-glow {
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            background: var(--primary);
-            filter: blur(120px);
-            opacity: 0.2;
-            border-radius: 50%;
-            animation: float-bg 8s infinite alternate;
-            z-index: -1;
-        }
+        .btn-list { display: flex; flex-direction: column; gap: 12px; }
+        .btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 14px; border-radius: 12px; color: white; cursor: pointer; font-weight: 600; transition: 0.3s; display: flex; justify-content: space-between; align-items: center; }
+        .btn:hover { background: rgba(0, 210, 255, 0.1); border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 210, 255, 0.2); }
+        .status-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
 
-        @keyframes float-bg {
-            from { transform: translate(-50%, -50%); }
-            to { transform: translate(50%, 50%); }
-        }
-
-        .container {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 30px;
-            text-align: center;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            animation: fadeIn 1.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            border-radius: 50%;
-            margin: 0 auto 20px;
-            padding: 4px;
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.4);
-        }
-
-        .profile-img div {
-            background: var(--bg);
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 50px;
-        }
-
-        h1 { font-size: 32px; font-weight: 800; letter-spacing: -1px; margin-bottom: 10px; }
-        .title { color: var(--primary); font-size: 14px; font-weight: 600; text-transform: uppercase; margin-bottom: 30px; letter-spacing: 2px; }
-
-        .btn-list { display: flex; flex-direction: column; gap: 15px; }
-
-        .btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 16px;
-            border-radius: 15px;
-            color: white;
-            text-decoration: none;
-            font-weight: 600;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        .btn:hover {
-            background: rgba(0, 210, 255, 0.1);
-            border-color: var(--primary);
-            transform: scale(1.03) translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.2);
-        }
-
-        .dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
-
+        /* Modal Dizayni */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 100; padding: 20px; }
+        .modal-content { background: var(--card); border: 1px solid var(--primary); padding: 25px; border-radius: 20px; max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto; position: relative; }
+        .close-btn { position: sticky; top: 0; float: right; color: white; font-size: 20px; cursor: pointer; background: var(--primary); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        
+        .code-box { background: #000; color: #00ff88; padding: 12px; border-radius: 10px; font-family: monospace; margin: 10px 0; font-size: 13px; border-left: 3px solid var(--primary); }
+        h2 { color: var(--primary); margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
+        .lesson-item { margin-bottom: 15px; }
+        .lesson-item b { color: var(--accent); }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
-
     <div class="container">
-        <div class="profile-img">
-            <div>👨‍💻</div>
-        </div>
+        <div class="profile-img">👨‍💻</div>
         <h1>Akhror Web</h1>
         <p class="title">Frontend Developer</p>
-
         <div class="btn-list">
-            <a href="html-dars.html" class="btn">
-                <span>HTML5 Darslari</span>
-                <div class="dot"></div>
-            </a>
-            <a href="css_dars.html" class="btn">
-                <span>CSS3 Dizaynlar</span>
-                <div class="dot"></div>
-            </a>
-            <a href="pythondars.html" class="btn">
-                <span>Python Algoritmlar</span>
-                <div class="dot"></div>
-            </a>
+            <div class="btn" onclick="openModal('html')">HTML5 Darslari <div class="status-dot"></div></div>
+            <div class="btn" onclick="openModal('css')">CSS3 Dizaynlar <div class="status-dot"></div></div>
+            <div class="btn" onclick="openModal('python')">Python Algoritmlar <div class="status-dot"></div></div>
         </div>
     </div>
 
+    <div id="lessonModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const lessons = {
+            html: `<h2>HTML5 Mukammal Darslik</h2>
+                   <div class="lesson-item"><b>1. Kirish:</b> HTML - bu veb-sahifaning asosi.</div>
+                   <div class="lesson-item"><b>2. Matn teglari:</b> &lt;h1&gt; dan &lt;h6&gt; gacha sarlavhalar va &lt;p&gt; paragraf.</div>
+                   <div class="code-box">&lt;h1&gt;Mening birinchi saytim&lt;/h1&gt;</div>
+                   <div class="lesson-item"><b>3. Multimedia:</b> Rasm qo'shish uchun &lt;img src="link"&gt; ishlatiladi.</div>
+                   <div class="lesson-item"><b>4. Havolalar:</b> &lt;a href="link"&gt; orqali sahifalar bog'lanadi.</div>`,
+            
+            css: `<h2>CSS3 Professional Dizayn</h2>
+                  <div class="lesson-item"><b>1. Ranglar:</b> RGB, HEX va Gradientlar bilan ishlash.</div>
+                  <div class="code-box">background: linear-gradient(45deg, blue, green);</div>
+                  <div class="lesson-item"><b>2. Flexbox:</b> Elementlarni o'rtaga keltirish va tartiblash.</div>
+                  <div class="lesson-item"><b>3. Animatsiya:</b> @keyframes orqali neon effektlar yaratish.</div>
+                  <div class="lesson-item"><b>4. Soyalar:</b> box-shadow bilan 3D effekt berish.</div>`,
+
+            python: `<h2>Python Dasturlash Asoslari</h2>
+                     <div class="lesson-item"><b>1. O'zgaruvchilar:</b> Ma'lumotlarni saqlash (str, int, float).</div>
+                     <div class="code-box">ism = "Akhror" <br> yosh = 13</div>
+                     <div class="lesson-item"><b>2. Mantiq:</b> If, else shartlari orqali qaror qabul qilish.</div>
+                     <div class="lesson-item"><b>3. Takrorlash:</b> For va While sikllari bilan ishlash.</div>
+                     <div class="lesson-item"><b>4. Loyiha:</b> Shaxsiy kalkulyator yaratish kodi.</div>`
+        };
+
+        function openModal(type) {
+            document.getElementById('modalBody').innerHTML = lessons[type];
+            document.getElementById('lessonModal').style.display = 'flex';
+        }
+        function closeModal() {
+            document.getElementById('lessonModal').style.display = 'none';
+        }
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('lessonModal')) closeModal();
+        }
+    </script>
 </body>
 </html>
