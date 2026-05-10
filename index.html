@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akhror Web | O'quv Platformasi</title>
+    <title>Akhror Web | Akademiya</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00d2ff; --accent: #00ff88; --bg: #06090f; --card: #111725; }
@@ -25,10 +25,16 @@
 
         /* Modal */
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); display: none; justify-content: center; align-items: center; z-index: 100; padding: 20px; }
-        .modal-content { background: var(--card); border: 1px solid var(--primary); padding: 30px; border-radius: 25px; max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto; }
-        .close-btn { float: right; color: white; font-size: 22px; cursor: pointer; background: var(--primary); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .modal-content { background: var(--card); border: 1px solid var(--primary); padding: 30px; border-radius: 25px; max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto; text-align: left; }
+        .close-btn { float: right; color: white; font-size: 22px; cursor: pointer; background: var(--primary); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
         
-        .code-box { background: #000; color: #00ff88; padding: 15px; border-radius: 10px; font-family: monospace; margin: 10px 0; font-size: 13px; border-left: 3px solid var(--primary); }
+        .quiz-box { margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 15px; border-left: 4px solid var(--accent); }
+        input[type="text"] { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid var(--primary); background: #000; color: white; }
+        .check-btn { background: var(--accent); color: #000; border: none; padding: 12px; border-radius: 8px; font-weight: 800; cursor: pointer; width: 100%; }
+
+        /* Sertifikat qismi */
+        #certArea { display: none; text-align: center; background: white; color: #111; padding: 40px; border: 10px double var(--primary); border-radius: 10px; margin-top: 20px; }
+        .cert-title { font-size: 24px; color: #111; margin-bottom: 10px; }
     </style>
 </head>
 <body>
@@ -39,10 +45,10 @@
         <p class="title-text">Frontend Developer</p>
         
         <div class="btn-list">
-            <div class="btn" onclick="openModal('html')">HTML5 Darslari <div class="status-dot"></div></div>
-            <div class="btn" onclick="openModal('css')">CSS3 Dizaynlar <div class="status-dot"></div></div>
-            <div class="btn" onclick="openModal('python')">Python Mantiqi <div class="status-dot"></div></div>
-            <a href="https://akhrorsoliev.github.io/" class="btn" style="border-color: #ff9f43;">Eski Portfoliom <div class="status-dot" style="background: #ff9f43; box-shadow: 0 0 12px #ff9f43;"></div></a>
+            <button class="btn" onclick="openModal('html')">HTML5 Darslari <span class="status-dot"></span></button>
+            <button class="btn" onclick="openModal('css')">CSS3 Dizaynlar <span class="status-dot"></span></button>
+            <button class="btn" onclick="openModal('python')">Python Mantiqi <span class="status-dot"></span></button>
+            <a href="https://akhrorsoliev.github.io/" class="btn" style="border-color: #ff9f43;">Eski Portfoliom <span class="status-dot" style="background: #ff9f43;"></span></a>
         </div>
     </div>
 
@@ -50,25 +56,63 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <div id="modalBody"></div>
+            <div id="quizContainer" class="quiz-box"></div>
+            
+            <div id="certArea">
+                <h3 class="cert-title">SERTIFIKAT</h3>
+                <p>Ushbu sertifikat egasi:</p>
+                <h2 id="studentName" style="color: var(--primary); margin: 15px 0;">Ism Sharif</h2>
+                <p>IT darslarini muvaffaqiyatli yakunladi!</p>
+                <p style="margin-top: 20px; font-size: 12px;">Akhror Web Akademiyasi</p>
+            </div>
         </div>
     </div>
 
     <script>
+        let solvedTests = { html: false, css: false, python: false };
+
         const lessons = {
-            html: `<h2>HTML Asoslari</h2><p>Veb-sahifa yaratish uchun asosiy teglar va ularning vazifasi.</p><div class="code-box">&lt;h1&gt;Salom Dunyo&lt;/h1&gt;</div>`,
-            css: `<h2>CSS Dizayn</h2><p>Saytni chiroyli qilish uchun ranglar va joylashuv (Flexbox) darslari.</p><div class="code-box">color: cyan; display: flex;</div>`,
-            python: `<h2>Python Mantiqi</h2><p>Dasturlash asoslari va algoritmlar.</p><div class="code-box">print("Hello Python")</div>`
+            html: { title: "HTML5 Darsi", content: "HTML sayt mazmunini belgilaydi.", question: "Eng katta sarlavha tegi?", answer: "h1" },
+            css: { title: "CSS3 Darsi", content: "CSS rang va ko'rinish beradi.", question: "Matn rangini o'zgartirish kodi?", answer: "color" },
+            python: { title: "Python Darsi", content: "Python dasturlash mantiqi.", question: "Ekranga chiqarish buyrug'i?", answer: "print" }
         };
 
         function openModal(type) {
-            document.getElementById('modalBody').innerHTML = lessons[type];
+            const data = lessons[type];
+            document.getElementById('certArea').style.display = 'none';
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('modalBody').innerHTML = `<h2>${data.title}</h2><p>${data.content}</p>`;
+            document.getElementById('quizContainer').innerHTML = `
+                <p><strong>Savol:</strong> ${data.question}</p>
+                <input type="text" id="quizInput" placeholder="Javobni yozing...">
+                <button class="check-btn" onclick="checkAnswer('${type}')">Tekshirish</button>
+            `;
             document.getElementById('lessonModal').style.display = 'flex';
         }
 
-        function closeModal() {
-            document.getElementById('lessonModal').style.display = 'none';
+        function checkAnswer(type) {
+            const input = document.getElementById('quizInput').value.toLowerCase().trim();
+            if(input === lessons[type].answer) {
+                solvedTests[type] = true;
+                alert("To'g'ri! 🎉");
+                checkCertificate();
+            } else {
+                alert("Xato! Yana bir bor urinib ko'ring. 😊");
+            }
         }
+
+        function checkCertificate() {
+            if(solvedTests.html && solvedTests.css && solvedTests.python) {
+                let name = prompt("Tabriklaymiz! Barcha testlarni yakunladingiz. Sertifikat uchun ismingizni kiriting:");
+                if(name) {
+                    document.getElementById('quizContainer').style.display = 'none';
+                    document.getElementById('certArea').style.display = 'block';
+                    document.getElementById('studentName').innerText = name;
+                }
+            }
+        }
+
+        function closeModal() { document.getElementById('lessonModal').style.display = 'none'; }
     </script>
 </body>
 </html>
-
