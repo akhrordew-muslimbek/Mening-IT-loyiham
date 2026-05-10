@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Darslari | Akhror Web</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --python-blue: #3776ab;
+            --python-yellow: #ffd43b;
+            --bg: #06090f;
+        }
+
+        body { 
+            background: var(--bg); 
+            color: #c9d1d9; 
+            font-family: 'Outfit', sans-serif; 
+            padding: 20px; 
+            line-height: 1.6; 
+        }
+
+        .container { 
+            max-width: 600px; 
+            margin: 0 auto; 
+            background: rgba(255,255,255,0.03); 
+            padding: 30px; 
+            border-radius: 25px; 
+            border: 1px solid rgba(55, 118, 171, 0.3);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+
+        h1 { 
+            background: linear-gradient(to right, var(--python-blue), var(--python-yellow));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            font-size: 35px;
+            margin-bottom: 20px;
+        }
+
+        .lesson-part {
+            background: rgba(255,255,255,0.05);
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        h3 { color: var(--python-yellow); margin-bottom: 10px; }
+
+        .code-block { 
+            background: #0d1117; 
+            padding: 15px; 
+            border-radius: 10px; 
+            font-family: 'Courier New', monospace; 
+            color: #a5d6ff; 
+            border-left: 4px solid var(--python-blue);
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+
+        .back-btn { 
+            display: inline-block; 
+            margin-top: 20px; 
+            color: white; 
+            text-decoration: none; 
+            background: linear-gradient(45deg, var(--python-blue), #2b5b84);
+            padding: 12px 25px; 
+            border-radius: 12px; 
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(55, 118, 171, 0.4); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Python Logikasi 🐍</h1>
+        
+        <div class="lesson-part">
+            <h3>1-Dars: O'zgaruvchilar</h3>
+            <p>Python-da ma'lumotlarni saqlash uchun o'zgaruvchilardan foydalanamiz.</p>
+            <div class="code-block">
+                ism = "Akhror"<br>
+                yosh = 13<br>
+                print(ism, "hozir", yosh, "yoshda")
+            </div>
+        </div>
+
+        <div class="lesson-part">
+            <h3>2-Dars: Shart operatorlari</h3>
+            <p>Agar ma'lum bir shart bajarilsa, kodning bir qismini ishlatish mumkin.</p>
+            <div class="code-block">
+                son = 10<br>
+                if son > 0:<br>
+                &nbsp;&nbsp;&nbsp;&nbsp;print("Musbat son")
+            </div>
+        </div>
+
+        <a href="index.html" class="back-btn">⬅ Bosh sahifaga qaytish</a>
+    </div>
+
+</body>
+</html>
