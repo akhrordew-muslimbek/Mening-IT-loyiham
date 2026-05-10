@@ -3,32 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Akhror Web | Interaktiv Darslar</title>
+    <title>Akhror Web | O'quv Platformasi</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600;800&display=swap" rel="stylesheet">
     <style>
         :root { --primary: #00d2ff; --accent: #00ff88; --bg: #06090f; --card: #111725; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { background: var(--bg); font-family: 'Outfit', sans-serif; color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden; }
 
-        .container { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 40px; border-radius: 30px; text-align: center; width: 90%; max-width: 400px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 1; }
-        .profile-img { width: 100px; height: 100px; background: linear-gradient(45deg, var(--primary), var(--accent)); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 40px; border: 3px solid var(--bg); box-shadow: 0 0 20px var(--primary); }
-        h1 { font-size: 28px; margin-bottom: 5px; }
-        .title { color: var(--primary); font-size: 12px; letter-spacing: 2px; margin-bottom: 25px; text-transform: uppercase; }
+        .container { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.1); padding: 40px; border-radius: 30px; text-align: center; width: 95%; max-width: 420px; box-shadow: 0 20px 50px rgba(0,0,0,0.5); z-index: 1; }
+        
+        /* Profil aylanasi */
+        .profile-img { width: 110px; height: 110px; background: linear-gradient(45deg, var(--primary), var(--accent)); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-size: 45px; border: 3px solid var(--bg); box-shadow: 0 0 25px var(--primary); animation: glow 3s infinite alternate; }
+        @keyframes glow { from { box-shadow: 0 0 15px var(--primary); } to { box-shadow: 0 0 30px var(--accent); } }
+
+        h1 { font-size: 30px; margin-bottom: 5px; font-weight: 800; }
+        .title { color: var(--primary); font-size: 13px; letter-spacing: 2px; margin-bottom: 25px; text-transform: uppercase; font-weight: 600; }
 
         .btn-list { display: flex; flex-direction: column; gap: 12px; }
-        .btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 14px; border-radius: 12px; color: white; cursor: pointer; font-weight: 600; transition: 0.3s; display: flex; justify-content: space-between; align-items: center; }
-        .btn:hover { background: rgba(0, 210, 255, 0.1); border-color: var(--primary); transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0, 210, 255, 0.2); }
-        .status-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
-
-        /* Modal Dizayni */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: none; justify-content: center; align-items: center; z-index: 100; padding: 20px; }
-        .modal-content { background: var(--card); border: 1px solid var(--primary); padding: 25px; border-radius: 20px; max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto; position: relative; }
-        .close-btn { position: sticky; top: 0; float: right; color: white; font-size: 20px; cursor: pointer; background: var(--primary); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); padding: 16px; border-radius: 15px; color: white; cursor: pointer; font-weight: 600; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); display: flex; justify-content: space-between; align-items: center; text-decoration: none; }
+        .btn:hover { background: rgba(0, 210, 255, 0.12); border-color: var(--primary); transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0, 210, 255, 0.3); }
         
-        .code-box { background: #000; color: #00ff88; padding: 12px; border-radius: 10px; font-family: monospace; margin: 10px 0; font-size: 13px; border-left: 3px solid var(--primary); }
-        h2 { color: var(--primary); margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px; }
-        .lesson-item { margin-bottom: 15px; }
-        .lesson-item b { color: var(--accent); }
+        /* Eski sayt tugmasi uchun maxsus rang */
+        .btn-old { border-color: #ff9f43; background: rgba(255, 159, 67, 0.05); }
+        .btn-old:hover { border-color: #ff9f43; background: rgba(255, 159, 67, 0.15); box-shadow: 0 8px 20px rgba(255, 159, 67, 0.3); }
+
+        .status-dot { width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 12px var(--accent); }
+        .old-dot { background: #ff9f43; box-shadow: 0 0 12px #ff9f43; }
+
+        /* Modal (Oyna) */
+        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: none; justify-content: center; align-items: center; z-index: 100; padding: 20px; }
+        .modal-content { background: var(--card); border: 1px solid var(--primary); padding: 30px; border-radius: 25px; max-width: 500px; width: 100%; max-height: 85vh; overflow-y: auto; box-shadow: 0 0 40px rgba(0, 210, 255, 0.2); }
+        .close-btn { position: sticky; top: 0; float: right; color: white; font-size: 22px; cursor: pointer; background: var(--primary); width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 10px; }
+        
+        .code-box { background: #000; color: #00ff88; padding: 15px; border-radius: 12px; font-family: 'Courier New', monospace; margin: 15px 0; font-size: 13px; border-left: 4px solid var(--primary); line-height: 1.5; }
+        h2 { color: var(--primary); margin-bottom: 20px; font-size: 24px; border-bottom: 2px solid rgba(0, 210, 255, 0.2); padding-bottom: 10px; }
+        .lesson-item { margin-bottom: 18px; font-size: 15px; }
+        .lesson-item b { color: var(--accent); font-size: 16px; }
     </style>
 </head>
 <body>
@@ -37,10 +47,13 @@
         <div class="profile-img">👨‍💻</div>
         <h1>Akhror Web</h1>
         <p class="title">Frontend Developer</p>
+        
         <div class="btn-list">
             <div class="btn" onclick="openModal('html')">HTML5 Darslari <div class="status-dot"></div></div>
             <div class="btn" onclick="openModal('css')">CSS3 Dizaynlar <div class="status-dot"></div></div>
-            <div class="btn" onclick="openModal('python')">Python Algoritmlar <div class="status-dot"></div></div>
+            <div class="btn" onclick="openModal('python')">Python Mantiqi <div class="status-dot"></div></div>
+            
+            <a href="https://akhrorsoliev.github.io/" target="_blank" class="btn btn-old">Eski Portfoliom <div class="status-dot old-dot"></div></a>
         </div>
     </div>
 
@@ -53,26 +66,29 @@
 
     <script>
         const lessons = {
-            html: `<h2>HTML5 Mukammal Darslik</h2>
-                   <div class="lesson-item"><b>1. Kirish:</b> HTML - bu veb-sahifaning asosi.</div>
-                   <div class="lesson-item"><b>2. Matn teglari:</b> &lt;h1&gt; dan &lt;h6&gt; gacha sarlavhalar va &lt;p&gt; paragraf.</div>
-                   <div class="code-box">&lt;h1&gt;Mening birinchi saytim&lt;/h1&gt;</div>
-                   <div class="lesson-item"><b>3. Multimedia:</b> Rasm qo'shish uchun &lt;img src="link"&gt; ishlatiladi.</div>
-                   <div class="lesson-item"><b>4. Havolalar:</b> &lt;a href="link"&gt; orqali sahifalar bog'lanadi.</div>`,
+            html: `<h2>HTML5 Mukammal Kurs</h2>
+                   <div class="lesson-item"><b>1. Strukturasi:</b> Saytning asosi &lt;html&gt;, &lt;head&gt; va &lt;body&gt; qismlaridan iborat.</div>
+                   <div class="lesson-item"><b>2. Sarlavhalar:</b> &lt;h1&gt; eng muhim, &lt;h6&gt; eng kichik sarlavha.</div>
+                   <div class="code-box">&lt;h1&gt;Salom, dunyo!&lt;/h1&gt;</div>
+                   <div class="lesson-item"><b>3. Ro'yxatlar:</b> Tartibli (&lt;ol&gt;) va tartibsiz (&lt;ul&gt;) ro'yxatlar.</div>
+                   <div class="lesson-item"><b>4. Multimedia:</b> Rasmlar (&lt;img&gt;) va havolalar (&lt;a&gt;) qo'shish.</div>
+                   <div class="lesson-item"><b>5. Formalar:</b> Saytda login va parollar uchun &lt;input&gt; teglari.</div>`,
             
             css: `<h2>CSS3 Professional Dizayn</h2>
-                  <div class="lesson-item"><b>1. Ranglar:</b> RGB, HEX va Gradientlar bilan ishlash.</div>
-                  <div class="code-box">background: linear-gradient(45deg, blue, green);</div>
-                  <div class="lesson-item"><b>2. Flexbox:</b> Elementlarni o'rtaga keltirish va tartiblash.</div>
-                  <div class="lesson-item"><b>3. Animatsiya:</b> @keyframes orqali neon effektlar yaratish.</div>
-                  <div class="lesson-item"><b>4. Soyalar:</b> box-shadow bilan 3D effekt berish.</div>`,
+                  <div class="lesson-item"><b>1. Selektorlar:</b> Elementlarga rang va shakl berish usullari.</div>
+                  <div class="code-box">.karta { background: #111; color: white; }</div>
+                  <div class="lesson-item"><b>2. Flexbox:</b> Elementlarni bir qatorda chiroyli joylashtirish.</div>
+                  <div class="lesson-item"><b>3. Gradientlar:</b> Ranglarni bir-biriga tovlanib o'tishi.</div>
+                  <div class="lesson-item"><b>4. Animatsiyalar:</b> @keyframes yordamida elementlarni harakatlantirish.</div>
+                  <div class="lesson-item"><b>5. Soyalar:</b> box-shadow orqali neon effektlar yaratish.</div>`,
 
-            python: `<h2>Python Dasturlash Asoslari</h2>
-                     <div class="lesson-item"><b>1. O'zgaruvchilar:</b> Ma'lumotlarni saqlash (str, int, float).</div>
-                     <div class="code-box">ism = "Akhror" <br> yosh = 13</div>
-                     <div class="lesson-item"><b>2. Mantiq:</b> If, else shartlari orqali qaror qabul qilish.</div>
-                     <div class="lesson-item"><b>3. Takrorlash:</b> For va While sikllari bilan ishlash.</div>
-                     <div class="lesson-item"><b>4. Loyiha:</b> Shaxsiy kalkulyator yaratish kodi.</div>`
+            python: `<h2>Python Algoritmlar</h2>
+                     <div class="lesson-item"><b>1. Kirish:</b> Python - eng sodda va kuchli dasturlash tili.</div>
+                     <div class="code-box">print("Python-ga xush kelibsiz!")</div>
+                     <div class="lesson-item"><b>2. O'zgaruvchilar:</b> Sonlar (int) va matnlar (str) bilan ishlash.</div>
+                     <div class="lesson-item"><b>3. Shartlar:</b> if-else yordamida mantiqiy qarorlar qabul qilish.</div>
+                     <div class="lesson-item"><b>4. Looplar:</b> for va while orqali amallarni takrorlash.</div>
+                     <div class="lesson-item"><b>5. Funksiyalar:</b> def orqali kodni qayta ishlatish.</div>`
         };
 
         function openModal(type) {
